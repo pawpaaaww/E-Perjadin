@@ -15,9 +15,9 @@
 
 <body>
     <div id="loader" class="loader"></div>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-nav sticky-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="menuUtama.php">E - Perjadin</a>
+            <a class="navbar-brand" href="menuUtama.php"><b>E - Perjadin</b></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -38,8 +38,8 @@
     </nav>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-12 p-0">
-                <img src="src/assets/images/halaman.jpg" class="img-fluid w-100" alt="Responsive Image">
+            <div class="col-12">
+                <img src="src/assets/images/halaman.jpg" class="img-fluid1 w-100" alt="Responsive Image">
             </div>
         </div>
     </div>

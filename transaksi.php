@@ -11,11 +11,11 @@
     <script src="./src/js/index.js"></script>
 </head>
 
-<body>
+<body class="bg">
     <div class="loader" id="loader"></div>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-nav sticky-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="menuUtama.php">E - Perjadin</a>
+            <a class="navbar-brand" href="menuUtama.php"><b>E - Perjadin</b></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -25,7 +25,7 @@
                         <a class="nav-link" href="formPegawai.php">Form Pegawai</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="transaksi.php">Form Transaksi</a>
+                        <a class="nav-link active" href="transaksi.php">Form Transaksi</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="laporanPengeluaran.php">Laporan Pengeluaran Kas</a>
@@ -85,7 +85,7 @@
                         <textarea class="form-control" id="kegiatan_perjadin" rows="3" placeholder="Masukkan Kegiatan Perjadin"></textarea>
                     </div>
                 </div>
-                <div class="col-md-6 mt-4 border">
+                <div class="col-md-6 mt-4 border bungkus">
                     <div class="border-biaya mt-3">
                         <h5 class="text-center text-uppercase">Biaya Perjadin</h5>
                     </div>
@@ -110,7 +110,7 @@
                         <label for="total_biaya">Total Biaya Perjadin</label>
                         <input type="text" class="form-control" id="total_biaya" placeholder="Total Biaya Perjadin" disabled>
                     </div>
-                    <div class="col-4 offset-8 mt-4 ">
+                    <div class="col mt-4 text-end">
                         <button type="button" class="btn btn-primary ms-5">Baru</button>
                         <button type="submit" class="btn btn-success">Simpan</button>
                     </div>

@@ -8,34 +8,33 @@
     <!-- Memasukkan file CSS Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <!-- Memasukan file CSS global -->
-    <link rel="stylesheet" href="src/style/global.css">
-    <script src="./src/js/index.js"></script>
-    <script src="./src/js/sweetalert2.all.min.js"></script>
+    <link rel="stylesheet" href="./src/style/global.css">
 </head>
 
-<body>
+<body class="bg">
     <div id="loader" class="loader"></div>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="menuUtama.php">E - Perjadin</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="formPegawai.php">Form Pegawai</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="transaksi.php">Form Transaksi</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="laporanPengeluaran.php">Laporan Pengeluaran Kas</a>
-                    </li>
-                </ul>
-            </div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-nav sticky-top">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="menuUtama.php"> <b>E - Perjadin</b></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" href="formPegawai.php">Form Pegawai</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="transaksi.php">Form Transaksi</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="laporanPengeluaran.php">Laporan Pengeluaran Kas</a>
+                </li>
+            </ul>
         </div>
-    </nav>
+    </div>
+</nav>
+
     <header>
         <div class="container mt-3">
             <div class="row align-items-center">
@@ -46,7 +45,7 @@
                     <h3 class="text-uppercase">Form Data Pegawai <br> Sentra wyata guna bandung</h3>
                 </div>
                 <div class="col-2 text-right">
-                    <img src="src/assets/images/logokanan.png" alt="Logo Kanan" width="75">
+                    <img src="src/assets/images/logokanan.png" class="logo-kanan" alt="Logo Kanan" width="75">
                 </div>
             </div>
         </div>
@@ -83,7 +82,7 @@
                         <label for="alamat">Alamat</label>
                         <textarea class="form-control" id="alamat" rows="3" placeholder="Masukkan Alamat"></textarea autocomplete="off" required>
                     </div>
-                    <div class="col-5 offset-7">
+                    <div class="col-12 text-end mb-5">
                         <button type="submit" class="btn btn-primary ms-4" id="simpan">Simpan</button>
                         <button type="button" class="btn btn-secondary">Ubah</button>
                         <button type="button" class="btn btn-danger" id="keluar">Keluar</button>
@@ -95,6 +94,7 @@
             <div class="col-10 offset-1">
                 <div class="card">
                 <div class="card-header">
+                    Input Detail
                 </div>
                 <div class="card-body" style="height: 250px; overflow: scroll;">
                     <table class="table table-bordered">
@@ -122,6 +122,8 @@
 <!-- Memasukkan file JavaScript Bootstrap -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="./src/js/index.js"></script>
+<script src="./src/js/sweetalert2.all.min.js"></script>
 <script>
 
 // Modal Info Button Keluar Start
@@ -139,7 +141,7 @@ customClass: {
     denyButton: 'order-3',
 }
 }).then((result) => {if (result.isConfirmed) {
-window.location.href = 'login.php';} else if (result.isDenied) {}
+window.location.href = 'index.php';} else if (result.isDenied) {}
 })};
 // Modal Info Button Keluar End
 

@@ -16,7 +16,7 @@ if (isset($_POST['save'])) {
         // Jika username belum ada, lakukan penyimpanan data ke database
         $insertQuery = "INSERT INTO login (username, pass) VALUES ('$user', '$pass')";
         if (mysqli_query($conn, $insertQuery)) {
-            echo "<script>alert('Registrasi Behasil '); window.location.href = 'login.php';</script>";
+            echo "<script>alert('Registrasi Behasil '); window.location.href = 'index.php';</script>";
         } else {
             echo "<script>alert('Registrasi Gagal');</script>";
             echo "Error: " . $insertQuery . "
@@ -38,6 +38,7 @@ if (isset($_POST['save'])) {
     <!-- Memasukkan file CSS Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <!-- Memasukkan file CSS Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="src/style/sweetalert2.min.css">
     <link rel="stylesheet" href="src/style/global.css">
 </head>
@@ -50,7 +51,7 @@ if (isset($_POST['save'])) {
                     <div class="card-header">
                         <h4 class="text-center">Register </h4>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body mt-3">
                         <form action="" method="POST" autocomplete="off">
                             <div class="form-group">
                                 <label for="email"><i class="fas fa-user"></i> Username:</label>
@@ -60,17 +61,15 @@ if (isset($_POST['save'])) {
                                 <label for="password"><i class="fas fa-lock"></i> Password:</label>
                                 <input type="password" class="form-control" id="password" placeholder="Enter password" name="password" required>
                             </div>
-                            <div class="form-group form-check">
-                                <div class="d-flex justify-content-between align-items-center">
-                                </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-outline-primary" name="save" value="submit">Register</button>
                             </div>
-                            <button type="submit" class="btn btn-danger" name="save" value="submit">Register</button>
                         </form>
                     </div>
                     <div class="card-footer">
                         <div class="text-center">
                             <span> Sudah Memiliki Akun ? </span>
-                            <a href="login.php" class="text-dark"><i class="fas fa-key"></i> Login</a>
+                            <a href="index.php" class="text-dark"><i class="fas fa-key"></i> Login</a>
                         </div>
                     </div>
                 </div>

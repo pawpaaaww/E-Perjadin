@@ -12,10 +12,16 @@
     <link rel="stylesheet" href="src/style/global.css">
 </head>
 
+
 <body>
     <div class="container">
-        <div class="row justify-content-center mt-5">
-            <div class="col-md-6">
+        <div class="row mt-5">
+        <div class="col-md-6 my-auto">
+            <div class="d-flex align-items-center">
+                <h1>Welcome To E-Perjadin</h1>
+            </div>
+        </div>
+            <div class="col-md-6 mt-5">
                 <div class="card">
                     <div class="card-header">
                         <h4 class="text-center">Login</h4>
@@ -26,12 +32,12 @@
                         <?php endif; ?>
                         <form action="#" method="POST" autocomplete="off">
                             <div class="form-group">
-                                <label for="email"><i class="fas fa-envelope"></i> Email:</label>
-                                <input type="text" class="form-control" id="username" placeholder="Enter email" name="username" required>
+                                <label for="email"><i class="fa fa-user"></i> Username:</label>
+                                <input type="text" class="form-control" id="username" placeholder="Masukan Username" name="username" required>
                             </div>
                             <div class="form-group">
                                 <label for="password"><i class="fas fa-lock"></i> Password:</label>
-                                <input type="password" class="form-control" id="password" placeholder="Enter password" name="password" required>
+                                <input type="password" class="form-control" id="password" placeholder="Masukan password" name="password" required>
                             </div>
                             <div class="form-group form-check">
                                 <div class="d-flex justify-content-between align-items-center">
@@ -42,7 +48,9 @@
                                     <a href="#"><i class="fas fa-key"></i> Reset Password</a>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-danger" name="login" value="login">Login</button>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-outline-primary" name="login" value="login">Login</button>
+                            </div>
                         </form>
                     </div>
                     <div class="card-footer">
