@@ -12,11 +12,11 @@
     <script src="./src/js/index.js"></script>
 </head>
 
-<body>
+<body class="bg vh-100">
     <div class="loader" id="loader"></div>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-nav sticky-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">E - Perjadin</a>
+            <a class="navbar-brand" href="#"><b>E - Perjadin</b></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -29,7 +29,7 @@
                         <a class="nav-link" href="transaksi.php">Form Transaksi</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="laporanPengeluaran.php">Laporan Pengeluaran Kas</a>
+                        <a class="nav-link active" href="laporanPengeluaran.php">Laporan Pengeluaran Kas</a>
                     </li>
                 </ul>
             </div>
@@ -41,8 +41,8 @@
         <div class="row mt-5">
             <div class="col-10 offset-2 mb-3 mt-3">
                 <form>
-                    <div class="row align-items-center">
-                        <label class="col-sm-2 col-form-label text-center">Periode Transaksi</label>
+                    <div class="row align-items-center ">
+                        <label class="col-auto col-form-label text-center ">Periode Transaksi</label>
                         <div class="col-sm-10 d-flex">
                             <div class="col-3 me-3">
                                 <div class="input-group">
@@ -59,7 +59,7 @@
                                     <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                                 </div>
                             </div>
-                            <div class="col-2 ms-4">
+                            <div class="col-4 ms-4">
                                 <button class="btn btn-primary btn-sm" type="reset" onclick="location.reload()">
                                     <span class="fa fa-file me-1"></span>Baru
                                 </button>
