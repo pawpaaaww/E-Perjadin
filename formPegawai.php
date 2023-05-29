@@ -35,16 +35,16 @@ if (isset($_POST["submit"])) {
 
 <body class="bg">
     <div id="loader" class="loader"></div>
-    <<<<<<< HEAD <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-nav sticky-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="menuUtama.php">E - Perjadin</a>
+            <a class="navbar-brand" href="menuUtama.php"> <b>E - Perjadin</b></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="formPegawai.php">Form Pegawai</a>
+                        <a class="nav-link active" href="formPegawai.php">Form Pegawai</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="transaksi.php">Form Transaksi</a>
@@ -54,98 +54,77 @@ if (isset($_POST["submit"])) {
                     </li>
                 </ul>
             </div>
-            =======
-            <nav class="navbar navbar-expand-lg navbar-dark bg-nav sticky-top">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="menuUtama.php"> <b>E - Perjadin</b></a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link active" href="formPegawai.php">Form Pegawai</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="transaksi.php">Form Transaksi</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="laporanPengeluaran.php">Laporan Pengeluaran Kas</a>
-                            </li>
-                        </ul>
-                        >>>>>>> 4d1e7fd411c67dcbd4e425a113aeb117418452bc
-                    </div>
-                </div>
-            </nav>
+        </div>
+    </nav>
 
-            <header>
-                <div class="container mt-3">
-                    <div class="row align-items-center">
-                        <div class="col-2">
-                            <img src="src/assets/images/logokiri.png" alt="Logo Kiri" width="150">
-                        </div>
-                        <div class="col-8 text-center">
-                            <h3 class="text-uppercase">Form Data Pegawai <br> Sentra wyata guna bandung</h3>
-                        </div>
-                        <div class="col-2 text-right">
-                            <img src="src/assets/images/logokanan.png" class="logo-kanan" alt="Logo Kanan" width="75">
-                        </div>
-                    </div>
+    <header>
+        <div class="container mt-3">
+            <div class="row align-items-center">
+                <div class="col-2">
+                    <img src="src/assets/images/logokiri.png" alt="Logo Kiri" width="150">
                 </div>
-            </header>
-            <hr>
-            <div class="container mt-4">
-                <form method="POST" action="">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group form-pegawai">
-                                <label for="nip">NIP</label>
-                                <input type="text" class="form-control" id="nip" name="nip" placeholder="Masukkan NIP" autocomplete="off" oninput="validateInput(this)" required>
-                            </div>
-                            <div class="form-group form-pegawai">
-                                <label for="nama">Nama Pegawai</label>
-                                <input type="text" class="form-control" id="nama_pegawai" name="nama_pegawai" placeholder="Masukkan Nama Pegawai" autocomplete="off" required>
-                            </div>
-                            <div class="form-group form-pegawai">
-                                <label for="tgl_lahir">Tanggal Lahir</label>
-                                <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir" autocomplete="off" required>
-                            </div>
+                <div class="col-8 text-center">
+                    <h3 class="text-uppercase">Form Data Pegawai <br> Sentra wyata guna bandung</h3>
+                </div>
+                <div class="col-2 text-right">
+                    <img src="src/assets/images/logokanan.png" class="logo-kanan" alt="Logo Kanan" width="75">
+                </div>
+            </div>
+        </div>
+    </header>
+    <hr>
+    <div class="container mt-4 vh-100">
+        <form method="POST" action="">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group form-pegawai">
+                        <label for="nip">NIP</label>
+                        <input type="text" class="form-control" id="nip" name="nip" placeholder="Masukkan NIP" autocomplete="off" oninput="validateInput(this)" required>
+                    </div>
+                    <div class="form-group form-pegawai">
+                        <label for="nama">Nama Pegawai</label>
+                        <input type="text" class="form-control" id="nama_pegawai" name="nama_pegawai" placeholder="Masukkan Nama Pegawai" autocomplete="off" required>
+                    </div>
+                    <div class="form-group form-pegawai">
+                        <label for="tgl_lahir">Tanggal Lahir</label>
+                        <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir" autocomplete="off" required>
+                    </div>
 
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group form-pegawai">
-                                <label for="jabatan">Jabatan </label>
-                                <input type="text" class="form-control" id="jabatan" name="jabatan" placeholder="Masukkan Jabatan" autocomplete="off" required>
-                            </div>
-                            <div class="form-group form-pegawai">
-                                <label for="gol"> Golongan </label>
-                                <input type="text" class="form-control" id="golongan" name="golongan" placeholder="Masukkan Golongan " autocomplete="off" required>
-                            </div>
-                            <div class="form-group form-pegawai">
-                                <label for="alamat">Alamat</label>
-                                <textarea class="form-control" id="alamat" rows="3" name="alamat" placeholder="Masukkan Alamat"></textarea autocomplete="off" required>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group form-pegawai">
+                        <label for="jabatan">Jabatan </label>
+                        <input type="text" class="form-control" id="jabatan" name="jabatan" placeholder="Masukkan Jabatan" autocomplete="off" required>
+                    </div>
+                    <div class="form-group form-pegawai">
+                        <label for="gol"> Golongan </label>
+                        <input type="text" class="form-control" id="golongan" name="golongan" placeholder="Masukkan Golongan " autocomplete="off" required>
+                    </div>
+                    <div class="form-group form-pegawai">
+                        <label for="alamat">Alamat</label>
+                        <textarea class="form-control" id="alamat" rows="3" name="alamat" placeholder="Masukkan Alamat"></textarea autocomplete="off" required>
                     </div>
                     <div class="col-5 offset-7">
                         <button type="submit" class="btn btn-primary ms-4" id="submit" name="submit">Simpan</button>
                         <button type="button" class="btn btn-secondary">Ubah</button>
-                    <a href="login.php" <button type="button" class="btn btn-danger" id="keluar">Keluar</button></a>
+                        <button type="button" class="btn btn-danger" id="keluar">Keluar</button>
                     </div>
                 </div>
             </div>
         </form>
         <div class="row mt-3">
-            <div class="col-10 offset-1">
-                <div class="card">
-                <div class="card-header">
-                    Input Detail
-                </div>
-                <div class="card-body" style="height: 250px; overflow: scroll;">
-                    <table class="table table-bordered">
+            <div class="col-8">
+                <div class="card" style="width:80rem;">
+                    <div class="card-header">
+                    <p class="fs-5 text-center mt-3"> <b>Daftar Pegawai</b></p>
+                    </div>
+                    <div class="card-body" style="height: 350px; overflow: scroll;">
+                <table class="table table-bordered">
                     <thead class="text-center">
                         <th scope="col">No</th>
                         <th scope="col">NIP</th>
                         <th scope="col">Nama Pegawai</th>
-                        <th scope="col">tanggal_lahir</th>
+                        <th scope="col">Tanggal Lahir</th>
                         <th scope="col">Jabatan</th>
                         <th scope="col">Golongan</th>
                         <th scope="col">Alamat</th>
@@ -166,7 +145,10 @@ if (isset($_POST["submit"])) {
                         }
                         ?>
                     </tbody>
-                    </table>
+                </table>
+                </div>
+                <div class="card-footer">
+
                 </div>
                 </div>
             </div>
@@ -195,7 +177,8 @@ customClass: {
     denyButton: 'order-3',
 }
 }).then((result) => {if (result.isConfirmed) {
-window.location.href = 'index.php';} else if (result.isDenied) {}
+window.location.href = 'index.php';} 
+else if (result.isDenied) {}
 })};
 // Modal Info Button Keluar End
 

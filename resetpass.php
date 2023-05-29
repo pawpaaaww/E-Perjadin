@@ -29,7 +29,7 @@
 
                             if ($result !== 0) {
                                 echo "<scirpt>alert('Password berhasil direset') ; </scirpt>";
-                                echo '<script>window.location.href = "login.php";</script>';
+                                echo '<script>window.location.href = "index.php";</script>';
                                 exit;
                             } else {
                                 echo '<div class="alert alert-danger">Gagal mereset password.</div>';
@@ -47,7 +47,7 @@
                                 <input type="password" class="form-control" id="newPassword" name="newPassword" required>
                             </div>
                             <button type="submit" class="btn btn-danger" name="resetPassword">Reset Password</button>
-                            <a href="login.php">Login</a>
+                            <a href="index.php">Login</a>
                         </form>
                     </div>
                 </div>
