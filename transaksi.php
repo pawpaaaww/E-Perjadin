@@ -140,12 +140,7 @@ if (isset($_POST["submit"])) {
                         <label for="total_biaya">Total Biaya Perjadin</label>
                         <input type="text" class="form-control" id="total_biaya" placeholder="Total Biaya Perjadin" name="total_biaya_perjadin" readonly>
                     </div>
-<<<<<<< HEAD
-
-                    <div class="col-4 offset-8 mt-4 ">
-=======
                     <div class="col mt-4 text-end">
->>>>>>> 4d1e7fd411c67dcbd4e425a113aeb117418452bc
                         <button type="button" class="btn btn-primary ms-5">Baru</button>
                         <button type="submit" class="btn btn-success" id="submit" name="submit">Simpan</button>
                     </div>

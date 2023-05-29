@@ -16,11 +16,11 @@
 <body>
     <div class="container">
         <div class="row mt-5">
-        <div class="col-md-6 my-auto">
-            <div class="d-flex align-items-center">
-                <h1>Welcome To E-Perjadin</h1>
+            <div class="col-md-6 my-auto">
+                <div class="d-flex align-items-center">
+                    <h1>Welcome To E-Perjadin</h1>
+                </div>
             </div>
-        </div>
             <div class="col-md-6 mt-5">
                 <div class="card">
                     <div class="card-header">
@@ -32,21 +32,12 @@
                         <?php endif; ?>
                         <form action="#" method="POST" autocomplete="off">
                             <div class="form-group">
-<<<<<<< HEAD:login.php
                                 <label for="email"><i class="fas fa-envelope"></i> Email:</label>
                                 <input type="text" class="form-control" id="username" placeholder="Enter email" name="username" required value="<?php echo isset($_COOKIE['username']) ? $_COOKIE['username'] : ''; ?>">
                             </div>
                             <div class="form-group">
                                 <label for="password"><i class="fas fa-lock"></i> Password:</label>
                                 <input type="password" class="form-control" id="password" placeholder="Enter password" name="password" required value="<?php echo isset($_COOKIE['password']) ? $_COOKIE['password'] : ''; ?>">
-=======
-                                <label for="email"><i class="fa fa-user"></i> Username:</label>
-                                <input type="text" class="form-control" id="username" placeholder="Masukan Username" name="username" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="password"><i class="fas fa-lock"></i> Password:</label>
-                                <input type="password" class="form-control" id="password" placeholder="Masukan password" name="password" required>
->>>>>>> 4d1e7fd411c67dcbd4e425a113aeb117418452bc:index.php
                             </div>
                             <div class="form-group form-check">
                                 <div class="d-flex justify-content-between align-items-center">
