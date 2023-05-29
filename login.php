@@ -27,19 +27,19 @@
                         <form action="#" method="POST" autocomplete="off">
                             <div class="form-group">
                                 <label for="email"><i class="fas fa-envelope"></i> Email:</label>
-                                <input type="text" class="form-control" id="username" placeholder="Enter email" name="username" required>
+                                <input type="text" class="form-control" id="username" placeholder="Enter email" name="username" required value="<?php echo isset($_COOKIE['username']) ? $_COOKIE['username'] : ''; ?>">
                             </div>
                             <div class="form-group">
                                 <label for="password"><i class="fas fa-lock"></i> Password:</label>
-                                <input type="password" class="form-control" id="password" placeholder="Enter password" name="password" required>
+                                <input type="password" class="form-control" id="password" placeholder="Enter password" name="password" required value="<?php echo isset($_COOKIE['password']) ? $_COOKIE['password'] : ''; ?>">
                             </div>
                             <div class="form-group form-check">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div>
-                                        <input type="checkbox" class="form-check-input" id="rememberMe" name="rememberMe">
+                                        <input type="checkbox" class="form-check-input" id="rememberMe" name="rememberMe" <?php echo isset($_COOKIE['remember']) ? 'checked' : ''; ?>>
                                         <label class="form-check-label" for="rememberMe">Remember Me</label>
                                     </div>
-                                    <a href="#"><i class="fas fa-key"></i> Reset Password</a>
+                                    <a href="resetpass.php"><i class="fas fa-key"></i> Reset Password</a>
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-danger" name="login" value="login">Login</button>
@@ -63,35 +63,46 @@
         document.addEventListener("DOMContentLoaded", function() {
             <?php
             session_start();
-            include "connection.php";
-            if (
-                $_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['username']) && isset($_POST['password'])
-            ) {
+            include "function.php";
+            $conn = koneksi();
+
+            if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['username']) && isset($_POST['password'])) {
                 $user = $_POST['username'];
                 $pass = $_POST['password'];
-                $sql = mysqli_query($conn, "SELECT * FROM login WHERE username='$user' AND pass='$pass'");
 
-                $cek = mysqli_num_rows($sql);
-            }
-            ?>
-            <?php if ($cek > 0) : ?>
-                Swal.fire({
+                $sql = mysqli_query($conn, "SELECT pass FROM login WHERE username='$user'");
+                $row = mysqli_fetch_assoc($sql);
+                $hashedPassword = $row['pass'];
+                if (password_verify($pass, $hashedPassword)) {
+                    if (isset($_POST['rememberMe']) && $_POST['rememberMe'] == 'on') {
+                        setcookie('username', $user, time() + (30 * 24 * 60 * 60), '/');
+                        setcookie('password', $pass, time() + (30 * 24 * 60 * 60), '/');
+                        setcookie('remember', '1', time() + (30 * 24 * 60 * 60), '/');
+                    } else {
+                        setcookie('username', '', time() - 3600, '/');
+                        setcookie('password', '', time() - 3600, '/');
+                        setcookie('remember', '', time() - 3600, '/');
+                    }
+                    echo "Swal.fire({
                     icon: 'success',
                     title: 'Login Berhasil!',
                     showConfirmButton: false,
                     timer: 1500
                 }).then(function() {
                     window.location.href = 'menuUtama.php';
-                });
-            <?php else : ?>
-                Swal.fire({
+                });";
+                } else {
+                    echo "Swal.fire({
                     icon: 'error',
-                    title: 'Username Atau Password Salah !!!!',
+                    title: 'Username atau Password Salah!',
                     showConfirmButton: true,
-                });
-            <?php endif; ?>
+                });";
+                }
+            }
+            ?>
         });
     </script>
+
 </body>
 
 </html>

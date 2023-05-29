@@ -1,5 +1,6 @@
 <?php
-include_once "connection.php";
+include_once "function.php";
+$conn = koneksi();
 
 if (isset($_POST['save'])) {
     $user = $_POST['username'];
@@ -14,7 +15,10 @@ if (isset($_POST['save'])) {
         echo "<script>alert('Username sudah digunakan. Silakan pilih username lain.');</script>";
     } else {
         // Jika username belum ada, lakukan penyimpanan data ke database
-        $insertQuery = "INSERT INTO login (username, pass) VALUES ('$user', '$pass')";
+        // Enkripsi password menggunakan password_hash
+        $hashedPassword = password_hash($pass, PASSWORD_DEFAULT);
+
+        $insertQuery = "INSERT INTO login (username, pass) VALUES ('$user', '$hashedPassword')";
         if (mysqli_query($conn, $insertQuery)) {
             echo "<script>alert('Registrasi Behasil '); window.location.href = 'login.php';</script>";
         } else {
@@ -27,6 +31,7 @@ if (isset($_POST['save'])) {
     mysqli_close($conn);
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">

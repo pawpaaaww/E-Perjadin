@@ -1,3 +1,25 @@
+<?php
+
+require "function.php";
+
+if (isset($_POST["submit"])) {
+    $conn = koneksi();
+
+    if (pegawai($_POST, $conn) > 0) {
+        echo "<script> 
+            alert('Data Berhasil di Tambahkan!');
+            document.location.href = 'formPegawai.php';
+        </script>";
+    } else {
+        echo "<script> 
+            alert('Data Gagal di Tambahkan!');
+        </script>";
+    }
+
+    mysqli_close($conn);
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,7 +37,7 @@
 
 <body>
     <div id="loader" class="loader"></div>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
         <div class="container-fluid">
             <a class="navbar-brand" href="menuUtama.php">E - Perjadin</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,40 +75,40 @@
     </header>
     <hr>
     <div class="container mt-4">
-        <form method="POST">
+        <form method="POST" action="">
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group form-pegawai">
                         <label for="nip">NIP</label>
-                        <input type="text" class="form-control" id="nip" placeholder="Masukkan NIP" autocomplete="off" required>
+                        <input type="text" class="form-control" id="nip" name="nip" placeholder="Masukkan NIP" autocomplete="off" oninput="validateInput(this)" required>
                     </div>
                     <div class="form-group form-pegawai">
                         <label for="nama">Nama Pegawai</label>
-                        <input type="text" class="form-control" id="nama" placeholder="Masukkan Nama Pegawai" autocomplete="off" required>
+                        <input type="text" class="form-control" id="nama_pegawai" name="nama_pegawai" placeholder="Masukkan Nama Pegawai" autocomplete="off" required>
                     </div>
                     <div class="form-group form-pegawai">
                         <label for="tgl_lahir">Tanggal Lahir</label>
-                        <input type="date" class="form-control" id="tgl_lahir" autocomplete="off" required>
+                        <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir" autocomplete="off" required>
                     </div>
 
                 </div>
                 <div class="col-md-6">
                     <div class="form-group form-pegawai">
                         <label for="jabatan">Jabatan </label>
-                        <input type="text" class="form-control" id="jabatan" placeholder="Masukkan Jabatan" autocomplete="off" required>
+                        <input type="text" class="form-control" id="jabatan" name="jabatan" placeholder="Masukkan Jabatan" autocomplete="off" required>
                     </div>
                     <div class="form-group form-pegawai">
                         <label for="gol"> Golongan </label>
-                        <input type="text" class="form-control" id="gol" placeholder="Masukkan Golongan " autocomplete="off" required>
+                        <input type="text" class="form-control" id="golongan" name="golongan" placeholder="Masukkan Golongan " autocomplete="off" required>
                     </div>
                     <div class="form-group form-pegawai">
                         <label for="alamat">Alamat</label>
-                        <textarea class="form-control" id="alamat" rows="3" placeholder="Masukkan Alamat"></textarea autocomplete="off" required>
+                        <textarea class="form-control" id="alamat" rows="3" name="alamat" placeholder="Masukkan Alamat"></textarea autocomplete="off" required>
                     </div>
                     <div class="col-5 offset-7">
-                        <button type="submit" class="btn btn-primary ms-4" id="simpan">Simpan</button>
+                        <button type="submit" class="btn btn-primary ms-4" id="submit" name="submit">Simpan</button>
                         <button type="button" class="btn btn-secondary">Ubah</button>
-                        <button type="button" class="btn btn-danger" id="keluar">Keluar</button>
+                    <a href="login.php" <button type="button" class="btn btn-danger" id="keluar">Keluar</button></a>
                     </div>
                 </div>
             </div>
@@ -99,18 +121,29 @@
                 <div class="card-body" style="height: 250px; overflow: scroll;">
                     <table class="table table-bordered">
                     <thead class="text-center">
-                        <tr>
                         <th scope="col">No</th>
                         <th scope="col">NIP</th>
                         <th scope="col">Nama Pegawai</th>
+                        <th scope="col">tanggal_lahir</th>
                         <th scope="col">Jabatan</th>
                         <th scope="col">Golongan</th>
                         <th scope="col">Alamat</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                        </tr>
+                        <?php
+                        $dataPegawai = tablepegawai(); // Mengambil semua data pegawai dari database
+                        foreach ($dataPegawai as $index => $pegawai) {
+                            echo "<td>" . ($index + 1) . "</td>";
+                            echo "<td>" . $pegawai['nip'] . "</td>";
+                            echo "<td>" . $pegawai['nama_pegawai'] . "</td>";
+                            echo "<td>" . $pegawai['tanggal_lahir'] . "</td>";
+                            echo "<td>" . $pegawai['jabatan'] . "</td>";
+                            echo "<td>" . $pegawai['golongan'] . "</td>";
+                            echo "<td>" . $pegawai['alamat'] . "</td>";
+                            echo "</tr>";
+                        }
+                        ?>
                     </tbody>
                     </table>
                 </div>
@@ -122,74 +155,6 @@
 <!-- Memasukkan file JavaScript Bootstrap -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-
-// Modal Info Button Keluar Start
-var keluar = document.getElementById("keluar");
-keluar.onclick = function() {
-    Swal.fire({
-        title: 'Apakah anda akan keluar?',
-        showDenyButton: true,
-        confirmButtonText: 'Ya',
-        denyButtonText: 'Tidak',
-customClass: {
-    actions: 'my-actions',
-    cancelButton: 'order-1 right-gap',
-    confirmButton: 'order-2',
-    denyButton: 'order-3',
-}
-}).then((result) => {if (result.isConfirmed) {
-window.location.href = 'login.php';} else if (result.isDenied) {}
-})};
-// Modal Info Button Keluar End
-
-// Modal Button Simpan Start
-var simpan = document.getElementById("simpan");
-simpan.onclick = function() {
-    Swal.fire({
-        title: 'Do you want to save the changes?',
-        showDenyButton: true,
-        showCancelButton: true,
-        confirmButtonText: 'Yes',
-        denyButtonText: 'No',
-        customClass: {
-            actions: 'my-actions',
-            cancelButton: 'order-1 right-gap',
-            confirmButton: 'order-2',
-            denyButton: 'order-3',
-        }
-    }).then((result) => {
-        if (result.isConfirmed) {
-            // Data yang akan dikirim ke server
-            var data = {
-                nip: document.getElementById("nip").value,
-                nama: document.getElementById("nama").value,
-                jabatan: document.getElementById("jabatan").value,
-                gol: document.getElementById("gol").value,
-                alamat: document.getElementById("alamat").value
-            };
-
-            // Mengirim data ke server menggunakan AJAX
-            $.ajax({
-                url: 'connection.php',
-                type: 'POST',
-                data: data,
-                success: function(response) {
-                    Swal.fire('Saved!', '', 'success');
-                },
-                error: function() {
-                    Swal.fire('Error!', 'Failed to save the data.', 'error');
-                }
-            });
-        } else if (result.isDenied) {
-            Swal.fire('Changes are not saved', '', 'info');
-        }
-    });
-};
-// Modal Button Simpan End
-
-
-</script>
 
 </body>
 
