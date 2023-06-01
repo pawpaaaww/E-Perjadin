@@ -38,8 +38,8 @@
     <div class="container">
         <h2 class="text-center mt-4 text-uppercase">Laporan Pengeluaran</h2>
         <hr>
-        <div class="row mt-5">
-            <div class="col-10 offset-2 mb-3 mt-3">
+        <div class="row">
+            <div class="col-10 offset-2">
                 <form>
                     <div class="row align-items-center ">
                         <label class="col-auto col-form-label text-center ">Periode Transaksi</label>
@@ -55,7 +55,7 @@
                             </div>
                             <div class="col-3 ms-3">
                                 <div class="input-group">
-                                    <input type="text" id="to" name="to" class="form-control form-control-sm" data-target="#reservationdate2" autocomplete="off">
+                                    <input type="date" id="to" name="to" class="form-control form-control-sm" data-target="#reservationdate2" autocomplete="off">
                                     <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                                 </div>
                             </div>
@@ -63,7 +63,7 @@
                                 <button class="btn btn-primary btn-sm" type="reset" onclick="location.reload()">
                                     <span class="fa fa-file me-1"></span>Baru
                                 </button>
-                                <button class="btn btn-success btn-sm" id="cetak">
+                                <button class="btn btn-success btn-sm" id="cetak" onclick="cetakLaporan()">
                                     <span class=" fa fa-print me-1"></span>Cetak
                                 </button>
                             </div>
@@ -72,50 +72,70 @@
                 </form>
             </div>
         </div>
-        <div class="container-fluid border border-1">
-            <div class="col-12 mt-3">
-                <table class="table table-bordered">
-                    <thead>
-                        <tr class="text-center">
-                            <th scope="col">No.</th>
-                            <th scope="col">No. Surat</th>
-                            <th scope="col">Nama</th>
-                            <th scope="col">NIP</th>
-                            <th scope="col">Tanggal Berangkat</th>
-                            <th scope="col">Tanggal Selesai</th>
-                            <th scope="col">Lama Dinas</th>
-                            <th scope="col">Total Biaya</th>
-                            <th scope="col">Kegiatan Perjadin</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        include 'function.php';
-                        $dataLaporan = laporanPengeluaran(); // Mengambil data laporan pengeluaran dari database
-                        $index = 0; // Inisialisasi counter
-                        foreach ($dataLaporan as $laporan) {
-                            $index++;
-                            echo "<tr>";
-                            echo "<td>" . $index . "</td>";
-                            echo "<td>" . $laporan['no_surat_tugas'] . "</td>";
-                            echo "<td>" . $laporan['nama_pegawai'] . "</td>";
-                            echo "<td>" . $laporan['nip'] . "</td>";
-                            echo "<td>" . $laporan['tanggal_berangkat'] . "</td>";
-                            echo "<td>" . $laporan['tanggal_selesai'] . "</td>";
-                            echo "<td>" . $laporan['lama_dinas'] . "</td>";
-                            echo "<td>" . $laporan['total_biaya_perjadin'] . "</td>";
-                            echo "<td>" . $laporan['kegiatan_perjadin'] . "</td>";
-                            echo "</tr>";
-                        }
-                        ?>
-                    </tbody>
-                </table>
+    </div>    
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-10 mx-auto text-center mt-3">
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <p>table</p>
+                        </div>
+                        <div class="card-body" style="height: 350px; overflow: scroll;">
+                            <table class="table table-border">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th scope="col">No.</th>
+                                        <th scope="col">No. Surat</th>
+                                        <th scope="col">Nama</th>
+                                        <th scope="col">NIP</th>
+                                        <th scope="col">Tanggal Berangkat</th>
+                                        <th scope="col">Tanggal Selesai</th>
+                                        <th scope="col">Lama Dinas</th>
+                                        <th scope="col">Total Biaya</th>
+                                        <th scope="col">Kegiatan Perjadin</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    include 'function.php';
+                                    $dataLaporan = laporanPengeluaran(); // Mengambil data laporan pengeluaran dari database
+                                    $index = 0; // Inisialisasi counter
+                                    foreach ($dataLaporan as $laporan) {
+                                        $index++;
+                                        echo "<tr>";
+                                        echo "<td>" . $index . "</td>";
+                                        echo "<td>" . $laporan['no_surat_tugas'] . "</td>";
+                                        echo "<td>" . $laporan['nama_pegawai'] . "</td>";
+                                        echo "<td>" . $laporan['nip'] . "</td>";
+                                        echo "<td>" . $laporan['tanggal_berangkat'] . "</td>";
+                                        echo "<td>" . $laporan['tanggal_selesai'] . "</td>";
+                                        echo "<td>" . $laporan['lama_dinas'] . "</td>";
+                                        echo "<td>" . $laporan['total_biaya_perjadin'] . "</td>";
+                                        echo "<td>" . $laporan['kegiatan_perjadin'] . "</td>";
+                                        echo "</tr>";
+                                    }
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="card-footer">
+                                
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
         <!-- Memasukkan file JavaScript Bootstrap -->
         <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            function cetakLaporan() {
+            var from = document.getElementById("from").value;
+            var to = document.getElementById("to").value;
+            window.open("print.php?from=" + from + "&to=" + to, "_blank");
+}
+        </script>
 </body>
 
 </html>

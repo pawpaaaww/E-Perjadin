@@ -1,3 +1,20 @@
+<?php
+session_start();
+require "function.php";
+
+
+$conn = koneksi();
+if (!isset($_SESSION['username'])) {
+    // Jika tidak, redirect ke halaman login
+    header("Location: index.php");
+    exit();
+}
+
+// Dapatkan nama pengguna dari sesi
+$namaUser = $_SESSION['username'];
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -36,12 +53,16 @@
             </div>
         </div>
     </nav>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-12">
-                <img src="src/assets/images/halaman.jpg" class="img-fluid1 w-100" alt="Responsive Image">
-            </div>
-        </div>
+    <div class="container-fluid-xl">
+                <div class="hero d-flex align-items-center">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-8 mx-auto text-center">
+                                <p class="h1 border border-5">Selamat Datang <?=$namaUser?> !!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
     </div>
 
     <!-- Memasukkan file JavaScript Bootstrap -->

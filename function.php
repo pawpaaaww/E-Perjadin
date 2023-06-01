@@ -143,3 +143,41 @@ function resetPassword($username, $newPassword)
         return 0;
     }
 }
+
+// Implementasi contoh laporanPengeluaranByPeriode
+function laporanPengeluaranByPeriode($from, $to) {
+    // Melakukan koneksi ke database (asumsikan menggunakan MySQLi)
+    $conn = new mysqli("localhost", "root", "", "perjadin");
+
+    // Memeriksa koneksi
+    if ($conn->connect_error) {
+        die("Koneksi ke database gagal: " . $conn->connect_error);
+    }
+
+    // Membuat query untuk mengambil data laporan berdasarkan periode
+    $sql = "SELECT * FROM transaksi INNER JOIN pegawai  WHERE tanggal_berangkat BETWEEN '$from' AND '$to'";
+    // Menjalankan query
+    $result = $conn->query($sql);
+    
+    // Mengecek apakah query berhasil dieksekusi
+    if ($result) {
+        // Mengambil data hasil query
+        $dataLaporan = array();
+        while ($row = $result->fetch_assoc()) {
+            $dataLaporan[] = $row;
+        }
+
+        // Menutup koneksi ke database
+        $conn->close();
+
+        // Mengembalikan data laporan
+        return $dataLaporan;
+    } else {
+        // Jika query gagal, menampilkan pesan error
+        echo "Error: " . $sql . "<br>" . $conn->error;
+        // Menutup koneksi ke database
+        $conn->close();
+        return array(); // Mengembalikan array kosong jika terjadi error
+    }
+}
+

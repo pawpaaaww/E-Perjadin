@@ -1,23 +1,5 @@
 <?php
-
 require "function.php";
-
-
-$conn = koneksi();
-
-if (isset($_POST["submit"])) {
-    if (transaksi($_POST, $conn) > 0) {
-        echo "<script> 
-            alert('Data Berhasil di Tambahkan!');
-            document.location.href = 'transaksi.php';
-        </script>";
-    } else {
-        echo "<script> 
-            alert('Data Gagal di Tambahkan!');
-        </script>";
-    }
-}
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -104,7 +86,6 @@ if (isset($_POST["submit"])) {
                     <div class="form-group">
                         <label for="tgl_selesai">Tanggal Selesai</label>
                         <input type="date" class="form-control" id="tanggal_selesai" name="tanggal_selesai" onchange="hitungLamaDinas()">
-
                     </div>
                     <div class="form-group">
                         <label for="lama_dinas">Lama Dinas</label>
@@ -145,7 +126,6 @@ if (isset($_POST["submit"])) {
                         <button type="submit" class="btn btn-success" id="submit" name="submit">Simpan</button>
                     </div>
                 </div>
-
             </div>
         </form>
     </div>
@@ -153,6 +133,34 @@ if (isset($_POST["submit"])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="./src/js/index.js"></script>
+    <script src="./src/js/sweetalert2.all.min.js"></script>
+    <?php
+    if (isset($_POST["submit"])) {
+    $conn = koneksi();
+    if (transaksi($_POST, $conn) > 0) {
+        echo "<script> 
+            Swal.fire({
+                title: 'Data Berhasil di Tambahkan!',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            }).then(() => {
+                window.location.href = 'transaksi.php';
+            });
+        </script>";
+    } else {
+        echo "<script> 
+            Swal.fire({
+                title: 'Data Gagal di Tambahkan!',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        </script>";
+    }
+
+    mysqli_close($conn);
+}
+    ?>
+
     <script>
         function getNIP() {
             var nama = document.getElementById("nama_pegawai").value;

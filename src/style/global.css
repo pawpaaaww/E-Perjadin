@@ -4,11 +4,20 @@
   --thrid:#FFEA20;
 }
 
-
-body.bg {
-  background: linear-gradient(to bottom, #ECF8F9, #068DA9);
+*,
+html,
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
+.w-container{
+  margin-top: 120px ;
+}
+
+
+/* navbar start */
 .nav-link.active {
   color: var(--thrid) !important;
   font-weight: 700;
@@ -18,10 +27,22 @@ body.bg {
   background: #0A4D68;
 }
 
+/* navbar end */
+
+/* all page start*/
 .form-group {
   margin-bottom: 1rem;
 }
 
+/* gradient page start */
+body.bg {
+  background: linear-gradient(to bottom, #ECF8F9, #068DA9);
+}
+/* gradient page end */
+
+/* all page end */
+
+/* transaksi start */
 .line {
   border: none;
   width: 200px;
@@ -30,7 +51,9 @@ body.bg {
   position: relative;
   background-color: white;
 }
+/* transaksi end */
 
+/* Loader Start */
 .loader {
   border: 16px solid rgba(0, 0, 0, 0.2);
   border-top: 16px solid #3498db;
@@ -72,14 +95,22 @@ body.loading::before {
   z-index: 9998;
   /* Menempatkan latar belakang di bawah spinner */
 }
-
+/* Loader End */
 .bungkus{
   height: 35rem;
 }
 
-.img-fluid1{
-  /* ... is the same as ... */
-  width: 10rem;
-  min-width: min-content;
-  max-width: max-content;
+/* menuUtama start */
+.hero{
+  height:93.6vh;
+  background-image: url('../assets/images/halaman.jpg'); 
+  background-position:center; 
+  background-size:cover; 
+  background-attachment: fixed;
 }
+
+.h1{
+  color: var(--secondary);
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+/* menuUtama end */

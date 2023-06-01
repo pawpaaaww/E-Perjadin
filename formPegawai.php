@@ -1,24 +1,5 @@
 <?php
-
 require "function.php";
-
-if (isset($_POST["submit"])) {
-    $conn = koneksi();
-
-    if (pegawai($_POST, $conn) > 0) {
-        echo "<script> 
-            alert('Data Berhasil di Tambahkan!');
-            document.location.href = 'formPegawai.php';
-        </script>";
-    } else {
-        echo "<script> 
-            alert('Data Gagal di Tambahkan!');
-        </script>";
-    }
-
-    mysqli_close($conn);
-}
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -73,7 +54,7 @@ if (isset($_POST["submit"])) {
         </div>
     </header>
     <hr>
-    <div class="container mt-4 vh-100">
+    <div class="container mt-4">
         <form method="POST" action="">
             <div class="row">
                 <div class="col-md-6">
@@ -87,9 +68,8 @@ if (isset($_POST["submit"])) {
                     </div>
                     <div class="form-group form-pegawai">
                         <label for="tgl_lahir">Tanggal Lahir</label>
-                        <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir" autocomplete="off" required>
+                        <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir" autocomplete="off" ->
                     </div>
-
                 </div>
                 <div class="col-md-6">
                     <div class="form-group form-pegawai">
@@ -104,7 +84,7 @@ if (isset($_POST["submit"])) {
                         <label for="alamat">Alamat</label>
                         <textarea class="form-control" id="alamat" rows="3" name="alamat" placeholder="Masukkan Alamat"></textarea autocomplete="off" required>
                     </div>
-                    <div class="col-5 offset-7">
+                    <div class="col text-end">
                         <button type="submit" class="btn btn-primary ms-4" id="submit" name="submit">Simpan</button>
                         <button type="button" class="btn btn-secondary">Ubah</button>
                         <button type="button" class="btn btn-danger" id="keluar">Keluar</button>
@@ -113,8 +93,8 @@ if (isset($_POST["submit"])) {
             </div>
         </form>
         <div class="row mt-3">
-            <div class="col-8">
-                <div class="card" style="width:80rem;">
+            <div class="col-12 mt-5">
+                <div class="card mb-3">
                     <div class="card-header">
                     <p class="fs-5 text-center mt-3"> <b>Daftar Pegawai</b></p>
                     </div>
@@ -160,6 +140,34 @@ if (isset($_POST["submit"])) {
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="./src/js/index.js"></script>
 <script src="./src/js/sweetalert2.all.min.js"></script>
+<!-- cek dan alert start -->
+<?php
+if (isset($_POST["submit"])) {
+    $conn = koneksi();
+    if (pegawai($_POST, $conn) > 0) {
+        echo "<script> 
+            Swal.fire({
+                title: 'Data Berhasil di Tambahkan!',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            }).then(() => {
+                window.location.href = 'formPegawai.php';
+            });
+        </script>";
+    } else {
+        echo "<script> 
+            Swal.fire({
+                title: 'Data Gagal di Tambahkan!',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        </script>";
+    }
+
+    mysqli_close($conn);
+}
+?>
+<!-- cek dan alert end -->
 <script>
 
 // Modal Info Button Keluar Start
@@ -183,48 +191,68 @@ else if (result.isDenied) {}
 // Modal Info Button Keluar End
 
 // Modal Button Simpan Start
-var simpan = document.getElementById("simpan");
-simpan.onclick = function() {
-    Swal.fire({
-        title: 'Do you want to save the changes?',
-        showDenyButton: true,
-        showCancelButton: true,
-        confirmButtonText: 'Yes',
-        denyButtonText: 'No',
-        customClass: {
-            actions: 'my-actions',
-            cancelButton: 'order-1 right-gap',
-            confirmButton: 'order-2',
-            denyButton: 'order-3',
-        }
-    }).then((result) => {
-        if (result.isConfirmed) {
-            // Data yang akan dikirim ke server
-            var data = {
-                nip: document.getElementById("nip").value,
-                nama: document.getElementById("nama").value,
-                jabatan: document.getElementById("jabatan").value,
-                gol: document.getElementById("gol").value,
-                alamat: document.getElementById("alamat").value
-            };
 
-            // Mengirim data ke server menggunakan AJAX
-            $.ajax({
-                url: 'connection.php',
-                type: 'POST',
-                data: data,
-                success: function(response) {
-                    Swal.fire('Saved!', '', 'success');
-                },
-                error: function() {
-                    Swal.fire('Error!', 'Failed to save the data.', 'error');
-                }
-            });
-        } else if (result.isDenied) {
-            Swal.fire('Changes are not saved', '', 'info');
-        }
-    });
-};
+// var submitButton = document.getElementById("submit");
+//     submitButton.onclick = function() {
+//         Swal.fire({
+//             title: 'Data akan disimpan. Apakah Anda yakin?',
+//             showCancelButton: true,
+//             confirmButtonText: 'Ya',
+//             cancelButtonText: 'Tidak',
+//             customClass: {
+//                 actions: 'my-actions',
+//                 cancelButton: 'order-1 right-gap',
+//                 confirmButton: 'order-2',
+//             }
+//         }).then((result) => {
+//             if (result.isConfirmed) {
+//                 // Continue with form submission
+//                 document.querySelector('form').submit();
+//             }
+//         });
+//     };
+// var simpan = document.getElementById("simpan");
+// simpan.onclick = function() {
+//     Swal.fire({
+//         title: 'Do you want to save the changes?',
+//         showDenyButton: true,
+//         showCancelButton: true,
+//         confirmButtonText: 'Yes',
+//         denyButtonText: 'No',
+//         customClass: {
+//             actions: 'my-actions',
+//             cancelButton: 'order-1 right-gap',
+//             confirmButton: 'order-2',
+//             denyButton: 'order-3',
+//         }
+//     }).then((result) => {
+//         if (result.isConfirmed) {
+//             // Data yang akan dikirim ke server
+//             var data = {
+//                 nip: document.getElementById("nip").value,
+//                 nama: document.getElementById("nama").value,
+//                 jabatan: document.getElementById("jabatan").value,
+//                 gol: document.getElementById("gol").value,
+//                 alamat: document.getElementById("alamat").value
+//             };
+
+//             // Mengirim data ke server menggunakan AJAX
+//             $.ajax({
+//                 url: 'connection.php',
+//                 type: 'POST',
+//                 data: data,
+//                 success: function(response) {
+//                     Swal.fire('Saved!', '', 'success');
+//                 },
+//                 error: function() {
+//                     Swal.fire('Error!', 'Failed to save the data.', 'error');
+//                 }
+//             });
+//         } else if (result.isDenied) {
+//             Swal.fire('Changes are not saved', '', 'info');
+//         }
+//     });
+// };
 // Modal Button Simpan End
 
 

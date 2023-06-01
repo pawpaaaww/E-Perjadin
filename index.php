@@ -9,16 +9,15 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <!-- Memasukkan file CSS Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="src/style/global.css">
+    <link rel="stylesheet" href="./src/style/global.css">
 </head>
 
-
-<body>
-    <div class="container">
-        <div class="row mt-5">
+<body class="bg vh-100">
+    <div class="container w-container">
+        <div class="row d-flex justify-content-center align-items-center">
             <div class="col-md-6 my-auto">
-                <div class="d-flex align-items-center">
-                    <h1>Welcome To E-Perjadin</h1>
+                <div class="d-flex align-items-center p-5 text-primary-emphasis">
+                    <p class="h4 bg-primary-subtle p-5 rounded-5 ms-5">Welcome E-Perjadin </p>
                 </div>
             </div>
             <div class="col-md-6 mt-5">
@@ -35,7 +34,7 @@
                                 <label for="email"><i class="fas fa-envelope"></i> Email:</label>
                                 <input type="text" class="form-control" id="username" placeholder="Enter email" name="username" required value="<?php echo isset($_COOKIE['username']) ? $_COOKIE['username'] : ''; ?>">
                             </div>
-                            <div class="form-group">
+                            <div class="">
                                 <label for="password"><i class="fas fa-lock"></i> Password:</label>
                                 <input type="password" class="form-control" id="password" placeholder="Enter password" name="password" required value="<?php echo isset($_COOKIE['password']) ? $_COOKIE['password'] : ''; ?>">
                             </div>
@@ -70,10 +69,8 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             <?php
-            session_start();
             include "function.php";
             $conn = koneksi();
-
             if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['username']) && isset($_POST['password'])) {
                 $user = $_POST['username'];
                 $pass = $_POST['password'];
@@ -91,21 +88,22 @@
                         setcookie('password', '', time() - 3600, '/');
                         setcookie('remember', '', time() - 3600, '/');
                     }
+                    session_start();
+                    $_SESSION['username'] = $user;
                     echo "Swal.fire({
-                    icon: 'success',
-                    title: 'Login Berhasil!',
-                    showConfirmButton: false,
-                    timer: 1500
-                }).then(function() {
-                    window.location.href = 'menuUtama.php';
-                });";
-                } else {
+                            icon: 'success',
+                            title: 'Login Berhasil!',
+                            showConfirmButton: false,
+                            timer: 1500
+                        }).then(function() {
+                            window.location.href = 'menuUtama.php';
+                        });";}else {
                     echo "Swal.fire({
-                    icon: 'error',
-                    title: 'Username atau Password Salah!',
-                    showConfirmButton: true,
-                });";
-                }
+                        icon: 'error',
+                        title: 'Username atau Password Salah!',
+                        showConfirmButton: true,
+                        });";
+                    }
             }
             ?>
         });
