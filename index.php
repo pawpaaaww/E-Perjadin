@@ -31,12 +31,12 @@
                         <?php endif; ?>
                         <form action="#" method="POST" autocomplete="off">
                             <div class="form-group">
-                                <label for="email"><i class="fas fa-envelope"></i> Email:</label>
-                                <input type="text" class="form-control" id="username" placeholder="Enter email" name="username" required value="<?php echo isset($_COOKIE['username']) ? $_COOKIE['username'] : ''; ?>">
+                                <label for="email"><i class="fas fa-user"></i> Username :</label>
+                                <input type="text" class="form-control" id="username" placeholder="Masukan Username" name="username" required value="<?php echo isset($_COOKIE['username']) ? $_COOKIE['username'] : ''; ?>">
                             </div>
                             <div class="">
                                 <label for="password"><i class="fas fa-lock"></i> Password:</label>
-                                <input type="password" class="form-control" id="password" placeholder="Enter password" name="password" required value="<?php echo isset($_COOKIE['password']) ? $_COOKIE['password'] : ''; ?>">
+                                <input type="password" class="form-control" id="password" placeholder="Masukan Password" name="password" required value="<?php echo isset($_COOKIE['password']) ? $_COOKIE['password'] : ''; ?>">
                             </div>
                             <div class="form-group form-check">
                                 <div class="d-flex justify-content-between align-items-center">
@@ -44,7 +44,6 @@
                                         <input type="checkbox" class="form-check-input" id="rememberMe" name="rememberMe" <?php echo isset($_COOKIE['remember']) ? 'checked' : ''; ?>>
                                         <label class="form-check-label" for="rememberMe">Remember Me</label>
                                     </div>
-                                    <a href="resetpass.php"><i class="fas fa-key"></i> Reset Password</a>
                                 </div>
                             </div>
                             <div class="text-center">
@@ -65,7 +64,7 @@
 
     <!-- Memasukkan file JavaScript Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
-    <script src="src/js/sweetalert2.all.min.js"></script>
+    <script src="./src/js/sweetalert2.all.min.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             <?php
@@ -76,34 +75,47 @@
                 $pass = $_POST['password'];
 
                 $sql = mysqli_query($conn, "SELECT pass FROM login WHERE username='$user'");
+
                 $row = mysqli_fetch_assoc($sql);
-                $hashedPassword = $row['pass'];
-                if (password_verify($pass, $hashedPassword)) {
-                    if (isset($_POST['rememberMe']) && $_POST['rememberMe'] == 'on') {
-                        setcookie('username', $user, time() + (30 * 24 * 60 * 60), '/');
-                        setcookie('password', $pass, time() + (30 * 24 * 60 * 60), '/');
-                        setcookie('remember', '1', time() + (30 * 24 * 60 * 60), '/');
-                    } else {
-                        setcookie('username', '', time() - 3600, '/');
-                        setcookie('password', '', time() - 3600, '/');
-                        setcookie('remember', '', time() - 3600, '/');
-                    }
-                    session_start();
-                    $_SESSION['username'] = $user;
-                    echo "Swal.fire({
+
+                if (mysqli_num_rows($sql) > 0) {
+                    if ($pass == $row['pass']) {
+                        if (isset($_POST['rememberMe']) && $_POST['rememberMe'] == 'on') {
+                            setcookie('username', $user, time() + (30 * 24 * 60 * 60), '/');
+                            setcookie('password', $pass, time() + (30 * 24 * 60 * 60), '/');
+                            setcookie('remember', '1', time() + (30 * 24 * 60 * 60), '/');
+                        } else {
+                            setcookie('username', '', time() - 3600, '/');
+                            setcookie('password', '', time() - 3600, '/');
+                            setcookie('remember', '', time() - 3600, '/');
+                        }
+                        session_start();
+                        $_SESSION['username'] = $user;
+
+                        echo "Swal.fire({
                             icon: 'success',
                             title: 'Login Berhasil!',
                             showConfirmButton: false,
                             timer: 1500
                         }).then(function() {
                             window.location.href = 'menuUtama.php';
-                        });";}else {
-                    echo "Swal.fire({
-                        icon: 'error',
-                        title: 'Username atau Password Salah!',
-                        showConfirmButton: true,
+                        });";
+                    } else {
+                        echo "Swal.fire({
+                            title: 'Password Salah',
+                            text: 'Pastikan password yang anda input benar',
+                            icon: 'error',
+                            confirmButtonText: 'OK'
                         });";
                     }
+                } else {
+                    echo "Swal.fire({
+                        title: 'Username tidak terdaftar',
+                        text: 'Lakukan Registrasi',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });";
+                }
             }
             ?>
         });

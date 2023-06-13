@@ -38,40 +38,47 @@ class PDF extends FPDF
         $this->Cell(40, 7, 'Tanggal Selesai', 1, 0, 'C'); // Ubah lebar kolom Tanggal Selesai
         $this->Cell(20, 7, 'Lama Dinas', 1, 0, 'C');
         $this->Cell(25, 7, 'Total Biaya', 1, 0, 'C');
-        $this->Cell(50, 7, 'Kegiatan Perjadin', 1, 0, 'C'); // Ubah lebar kolom Kegiatan Perjadin
-        $this->Ln();
+        $this->Cell(50, 7, 'Kegiatan Perjadin', 1, 1, 'C'); // Ubah lebar kolom Kegiatan Perjadin
     }
 
-    // ...
-
-
-    // Fungsi untuk mengatur konten tabel
-    function Content($data)
+    // Fungsi untuk mengatur footer dokumen PDF
+    function Footer()
     {
-        $no=1;
-        $this->SetFont('Arial', '', 10);
-
-        // Menampilkan data laporan
-        foreach ($data as $row) {
-            $this->Cell(10, 7, $no++, 1, 0, 'C');
-            $this->Cell(40, 7, $row['nama_pegawai'], 1, 0, 'C');
-            $this->Cell(40, 7, $row['no_surat_tugas'], 1, 0, 'C');
-            $this->Cell(30, 7, $row['nip'], 1, 0, 'C');
-            $this->Cell(35, 7, $row['tanggal_berangkat'], 1, 0, 'C');
-            $this->Ln();
-        }
+        // Teks kaki
+        $this->SetY(-15);
+        $this->SetFont('Arial', 'I', 8);
+        $this->Cell(0, 10, 'Halaman ' . $this->PageNo() . '/{nb}', 0, 0, 'C');
     }
 }
 
-// Membuat objek PDF
-$pdf = new PDF();
+// Instansiasi objek PDF
+$pdf = new PDF('P', 'mm', 'A4');
+$pdf->AliasNbPages();
+$pdf->SetFont('Arial', '', 10);
 
-// Membuat halaman baru
+// Membuat halaman potret
 $pdf->AddPage();
 
-// Mencetak konten tabel laporan
-$pdf->Content($dataLaporan);
 
-// Mengeluarkan hasil laporan dalam bentuk file PDF
+// Mencetak data laporan ke dalam tabel
+$pdf->SetFillColor(224, 235, 255);
+$pdf->SetTextColor(0);
+$pdf->SetDrawColor(128, 0, 0);
+$pdf->SetLineWidth(0.3);
+
+$index = 0; // Inisialisasi counter
+foreach ($dataLaporan as $laporan) {
+    $index++;
+    $pdf->Cell(15, 7, $index, 1, 0, 'C');
+    $pdf->Cell(40, 7, $laporan['no_surat_tugas'], 1, 0, 'L');
+    $pdf->Cell(50, 7, $laporan['nama_pegawai'], 1, 0, 'L');
+    $pdf->Cell(30, 7, $laporan['nip'], 1, 0, 'L');
+    $pdf->Cell(40, 7, $laporan['tanggal_berangkat'], 1, 0, 'L');
+    $pdf->Cell(40, 7, $laporan['tanggal_selesai'], 1, 0, 'L');
+    $pdf->Cell(20, 7, $laporan['lama_dinas'], 1, 0, 'C');
+    $pdf->Cell(25, 7, $laporan['total_biaya_perjadin'], 1, 0, 'R');
+    $pdf->Cell(50, 7, $laporan['kegiatan_perjadin'], 1, 1, 'L');
+}
+
+// Menutup dokumen PDF
 $pdf->Output();
-?>

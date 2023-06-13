@@ -1,20 +1,15 @@
 <?php
 session_start();
 require "function.php";
-
-
-$conn = koneksi();
+// Cek apakah pengguna sudah login
 if (!isset($_SESSION['username'])) {
     // Jika tidak, redirect ke halaman login
     header("Location: index.php");
     exit();
 }
-
 // Dapatkan nama pengguna dari sesi
 $namaUser = $_SESSION['username'];
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,6 +19,7 @@ $namaUser = $_SESSION['username'];
     <title>
         E - Perjadin
     </title>
+
     <!-- Memasukkan file CSS Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <link rel="stylesheet" href="./src/style/global.css">
@@ -54,15 +50,15 @@ $namaUser = $_SESSION['username'];
         </div>
     </nav>
     <div class="container-fluid-xl">
-                <div class="hero d-flex align-items-center">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-8 mx-auto text-center">
-                                <p class="h1 border border-5">Selamat Datang <?=$namaUser?> !!</p>
-                            </div>
-                        </div>
+        <div class="hero d-flex align-items-center">
+            <div class="container">
+                <div class="row">
+                    <div class="col-8 mx-auto text-center">
+                        <p class="h1 border border-5">Selamat Datang <?= $namaUser ?> !!</p>
                     </div>
                 </div>
+            </div>
+        </div>
     </div>
 
     <!-- Memasukkan file JavaScript Bootstrap -->
@@ -70,7 +66,6 @@ $namaUser = $_SESSION['username'];
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
     </script>
-
 </body>
 
 </html>

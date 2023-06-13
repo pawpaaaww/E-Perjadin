@@ -1,12 +1,11 @@
-var script = document.createElement('script');
-script.src = 'https://code.jquery.com/jquery-3.6.0.min.js';
-script.onload = function() {
+var script = document.createElement("script");
+script.src = "https://code.jquery.com/jquery-3.6.0.min.js";
+script.onload = function () {
   // Setelah jQuery dimuat, lanjutkan dengan kode Anda di sini
   // Misalnya, Anda dapat memanggil showLoader() di sini
   showLoader();
 };
-document.getElementsByTagName('head')[0].appendChild(script);
-
+document.getElementsByTagName("head")[0].appendChild(script);
 
 //loader
 function showLoader() {

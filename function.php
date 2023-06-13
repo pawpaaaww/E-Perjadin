@@ -51,8 +51,6 @@ function pegawai($data)
         die("Error: " . mysqli_error($conn));
     }
 
-
-
     return $result ? mysqli_affected_rows($conn) : -1;
 }
 
@@ -72,11 +70,11 @@ function transaksi($data)
     $uang_pendamping = $data['uang_pendamping'];
     $total_biaya_perjadin = $data['total_biaya_perjadin'];
 
-    // Ambil data pegawai berdasarkan NIP
+
     $nip = $data['nip'];
     $pegawai = getPegawaiByNIP($nip);
 
-    // Memasukkan data pegawai ke dalam tabel transaksi
+
     $query = "INSERT INTO transaksi (no_surat_tugas, tempat_perjadin, tanggal_berangkat, tanggal_selesai, lama_dinas, kegiatan_perjadin, biaya_penginapan, biaya_transaksi, uang_harian, uang_pendamping, total_biaya_perjadin, nip) 
             VALUES ('$no_surat_tugas', '$tempat_perjadin', '$tanggal_berangkat', '$tanggal_selesai', '$lama_dinas', '$kegiatan_perjadin', '$biaya_penginapan', '$biaya_transaksi', '$uang_harian', '$uang_pendamping', '$total_biaya_perjadin', '$nip')";
 
@@ -144,40 +142,53 @@ function resetPassword($username, $newPassword)
     }
 }
 
-// Implementasi contoh laporanPengeluaranByPeriode
-function laporanPengeluaranByPeriode($from, $to) {
-    // Melakukan koneksi ke database (asumsikan menggunakan MySQLi)
-    $conn = new mysqli("localhost", "root", "", "perjadin");
 
-    // Memeriksa koneksi
-    if ($conn->connect_error) {
-        die("Koneksi ke database gagal: " . $conn->connect_error);
-    }
+function laporanPengeluaranByPeriode($from, $to)
+{
+    $conn = koneksi();
 
-    // Membuat query untuk mengambil data laporan berdasarkan periode
-    $sql = "SELECT * FROM transaksi INNER JOIN pegawai  WHERE tanggal_berangkat BETWEEN '$from' AND '$to'";
-    // Menjalankan query
+
+    // Mengubah format tanggal
+    $from = date_format(date_create($from), 'Y-m-d');
+    $to = date_format(date_create($to), 'Y-m-d');
+
+    $sql = "SELECT transaksi.no_surat_tugas, pegawai.nama_pegawai, pegawai.nip, transaksi.tanggal_berangkat, transaksi.tanggal_selesai, transaksi.lama_dinas, transaksi.total_biaya_perjadin, transaksi.kegiatan_perjadin 
+    FROM transaksi INNER JOIN pegawai ON transaksi.nip = pegawai.nip
+    WHERE transaksi.tanggal_berangkat >= '$from' AND transaksi.tanggal_selesai <= '$to'";
+
     $result = $conn->query($sql);
-    
-    // Mengecek apakah query berhasil dieksekusi
+
     if ($result) {
-        // Mengambil data hasil query
+
         $dataLaporan = array();
         while ($row = $result->fetch_assoc()) {
             $dataLaporan[] = $row;
         }
-
-        // Menutup koneksi ke database
         $conn->close();
-
-        // Mengembalikan data laporan
         return $dataLaporan;
     } else {
-        // Jika query gagal, menampilkan pesan error
         echo "Error: " . $sql . "<br>" . $conn->error;
-        // Menutup koneksi ke database
         $conn->close();
-        return array(); // Mengembalikan array kosong jika terjadi error
+        return array();
     }
 }
 
+function deletedata()
+{
+    if (isset($_GET['delete'])) {
+        $conn = koneksi();
+
+        $query = "DELETE FROM transaksi";
+
+        $result = mysqli_query($conn, $query);
+
+        if ($result) {
+            echo "Data deleted successfully";
+        } else {
+            echo "Error deleting data";
+        }
+
+        mysqli_close($conn);
+        exit;
+    }
+}

@@ -1,5 +1,16 @@
 <?php
+session_start();
 require "function.php";
+
+// Cek apakah pengguna sudah login
+if (!isset($_SESSION['username'])) {
+    // Jika tidak, redirect ke halaman login
+    header("Location: index.php");
+    exit();
+}
+
+// Dapatkan nama pengguna dari sesi
+$namaUser = $_SESSION['username'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -39,7 +50,7 @@ require "function.php";
     </nav>
 
     <header>
-        <div class="container mt-3">
+        <div class="container mt-5">
             <div class="row align-items-center">
                 <div class="col-2">
                     <img src="src/assets/images/logokiri.png" alt="Logo Kiri" width="150">
@@ -86,7 +97,6 @@ require "function.php";
                     </div>
                     <div class="col text-end">
                         <button type="submit" class="btn btn-primary ms-4" id="submit" name="submit">Simpan</button>
-                        <button type="button" class="btn btn-secondary">Ubah</button>
                         <button type="button" class="btn btn-danger" id="keluar">Keluar</button>
                     </div>
                 </div>
@@ -108,7 +118,6 @@ require "function.php";
                         <th scope="col">Jabatan</th>
                         <th scope="col">Golongan</th>
                         <th scope="col">Alamat</th>
-                        </tr>
                     </thead>
                     <tbody>
                         <?php
@@ -121,6 +130,7 @@ require "function.php";
                             echo "<td>" . $pegawai['jabatan'] . "</td>";
                             echo "<td>" . $pegawai['golongan'] . "</td>";
                             echo "<td>" . $pegawai['alamat'] . "</td>";
+
                             echo "</tr>";
                         }
                         ?>
@@ -188,72 +198,9 @@ customClass: {
 window.location.href = 'index.php';} 
 else if (result.isDenied) {}
 })};
-// Modal Info Button Keluar End
 
-// Modal Button Simpan Start
 
-// var submitButton = document.getElementById("submit");
-//     submitButton.onclick = function() {
-//         Swal.fire({
-//             title: 'Data akan disimpan. Apakah Anda yakin?',
-//             showCancelButton: true,
-//             confirmButtonText: 'Ya',
-//             cancelButtonText: 'Tidak',
-//             customClass: {
-//                 actions: 'my-actions',
-//                 cancelButton: 'order-1 right-gap',
-//                 confirmButton: 'order-2',
-//             }
-//         }).then((result) => {
-//             if (result.isConfirmed) {
-//                 // Continue with form submission
-//                 document.querySelector('form').submit();
-//             }
-//         });
-//     };
-// var simpan = document.getElementById("simpan");
-// simpan.onclick = function() {
-//     Swal.fire({
-//         title: 'Do you want to save the changes?',
-//         showDenyButton: true,
-//         showCancelButton: true,
-//         confirmButtonText: 'Yes',
-//         denyButtonText: 'No',
-//         customClass: {
-//             actions: 'my-actions',
-//             cancelButton: 'order-1 right-gap',
-//             confirmButton: 'order-2',
-//             denyButton: 'order-3',
-//         }
-//     }).then((result) => {
-//         if (result.isConfirmed) {
-//             // Data yang akan dikirim ke server
-//             var data = {
-//                 nip: document.getElementById("nip").value,
-//                 nama: document.getElementById("nama").value,
-//                 jabatan: document.getElementById("jabatan").value,
-//                 gol: document.getElementById("gol").value,
-//                 alamat: document.getElementById("alamat").value
-//             };
 
-//             // Mengirim data ke server menggunakan AJAX
-//             $.ajax({
-//                 url: 'connection.php',
-//                 type: 'POST',
-//                 data: data,
-//                 success: function(response) {
-//                     Swal.fire('Saved!', '', 'success');
-//                 },
-//                 error: function() {
-//                     Swal.fire('Error!', 'Failed to save the data.', 'error');
-//                 }
-//             });
-//         } else if (result.isDenied) {
-//             Swal.fire('Changes are not saved', '', 'info');
-//         }
-//     });
-// };
-// Modal Button Simpan End
 
 
 </script>

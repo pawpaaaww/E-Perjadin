@@ -1,6 +1,18 @@
 <?php
+session_start();
 require "function.php";
+
+// Cek apakah pengguna sudah login
+if (!isset($_SESSION['username'])) {
+    // Jika tidak, redirect ke halaman login
+    header("Location: index.php");
+    exit();
+}
+
+// Dapatkan nama pengguna dari sesi
+$namaUser = $_SESSION['username'];
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -57,7 +69,7 @@ require "function.php";
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="no_surat_tugas">No. Surat Tugas</label>
-                        <input type="text" class="form-control" id="no_surat_tugas" placeholder="Masukkan No. Surat Tugas" name="no_surat_tugas" oninput="convertToUppercase(this)">
+                        <input type="text" class="form-control" id="no_surat_tugas" placeholder="Masukkan No. Surat Tugas" name="no_surat_tugas" oninput="convertToUppercase(this)" autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label for="nama_pegawai">Nama</label>
@@ -77,23 +89,23 @@ require "function.php";
                     </div>
                     <div class="form-group">
                         <label for="tempat_perjadin">Tempat Perjadin</label>
-                        <input type="text" class="form-control" id="tempat_perjadin" placeholder="Masukkan Tempat Perjadin" name="tempat_perjadin">
+                        <input type="text" class="form-control" id="tempat_perjadin" placeholder="Masukkan Tempat Perjadin" name="tempat_perjadin" autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label for="tanggal_berangkat">Tanggal Berangkat</label>
-                        <input type="date" class="form-control" id="tanggal_berangkat" name="tanggal_berangkat">
+                        <input type="date" class="form-control" id="tanggal_berangkat" name="tanggal_berangkat" autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label for="tgl_selesai">Tanggal Selesai</label>
-                        <input type="date" class="form-control" id="tanggal_selesai" name="tanggal_selesai" onchange="hitungLamaDinas()">
+                        <input type="date" class="form-control" id="tanggal_selesai" name="tanggal_selesai" onchange="hitungLamaDinas()" autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label for="lama_dinas">Lama Dinas</label>
-                        <input type="text" class="form-control" id="lama_dinas" placeholder="Masukkan Lama Dinas" name="lama_dinas">
+                        <input type="text" class="form-control" id="lama_dinas" placeholder="Masukkan Lama Dinas" name="lama_dinas" autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label for="kegiatan_perjadin">Kegiatan Perjadin</label>
-                        <textarea class="form-control" id="kegiatan_perjadin" rows="3" placeholder="Masukkan Kegiatan Perjadin" name="kegiatan_perjadin"></textarea>
+                        <textarea class="form-control" id="kegiatan_perjadin" rows="3" placeholder="Masukkan Kegiatan Perjadin" name="kegiatan_perjadin" autocomplete="off"></textarea>
                     </div>
                 </div>
                 <div class="col-md-6 mt-4 border bungkus">
@@ -103,26 +115,26 @@ require "function.php";
                     <hr class="line d-flex justify-content-center">
                     <div class="form-group">
                         <label for="biaya_penginapan">Biaya Penginapan</label>
-                        <input type="text" class="form-control" id="biaya_penginapan" placeholder="Masukkan Biaya Penginapan" name="biaya_penginapan" oninput="validateInput(this)" required>
+                        <input type="text" class="form-control" id="biaya_penginapan" placeholder="Masukkan Biaya Penginapan" name="biaya_penginapan" oninput="validateInput(this)" autocomplete="off" required>
                     </div>
                     <div class="form-group">
-                        <label for="biaya_transaksi">Biaya Transaksi</label>
-                        <input type="text" class="form-control" id="biaya_transaksi" placeholder="Masukkan Biaya Transaksi" name="biaya_transaksi" oninput="validateInput(this)" required>
+                        <label for="biaya_transaksi">Biaya Transportasi</label>
+                        <input type="text" class="form-control" id="biaya_transaksi" placeholder="Masukkan Biaya Transportasi" name="biaya_transaksi" oninput="validateInput(this)" autocomplete="off" required>
                     </div>
                     <div class="form-group">
                         <label for="uang_harian">Uang Harian</label>
-                        <input type="text" class="form-control" id="uang_harian" placeholder="Masukkan Uang Harian" name="uang_harian" oninput="validateInput(this)" required>
+                        <input type="text" class="form-control" id="uang_harian" placeholder="Masukkan Uang Harian" name="uang_harian" oninput="validateInput(this)" autocomplete="off" required>
                     </div>
                     <div class="form-group">
                         <label for="uang_pendamping">Uang Pendamping</label>
-                        <input type="text" class="form-control" id="uang_pendamping" placeholder="Masukkan Uang Pendamping" name="uang_pendamping" oninput="validateInput(this)" required>
+                        <input type="text" class="form-control" id="uang_pendamping" placeholder="Masukkan Uang Pendamping" name="uang_pendamping" oninput="validateInput(this)" autocomplete="off" required>
                     </div>
                     <div class="form-group">
                         <label for="total_biaya">Total Biaya Perjadin</label>
                         <input type="text" class="form-control" id="total_biaya" placeholder="Total Biaya Perjadin" name="total_biaya_perjadin" readonly>
                     </div>
                     <div class="col mt-4 text-end">
-                        <button type="button" class="btn btn-primary ms-5">Baru</button>
+                        <button type="reset" class="btn btn-primary ms-5">Baru</button>
                         <button type="submit" class="btn btn-success" id="submit" name="submit">Simpan</button>
                     </div>
                 </div>
@@ -136,9 +148,9 @@ require "function.php";
     <script src="./src/js/sweetalert2.all.min.js"></script>
     <?php
     if (isset($_POST["submit"])) {
-    $conn = koneksi();
-    if (transaksi($_POST, $conn) > 0) {
-        echo "<script> 
+        $conn = koneksi();
+        if (transaksi($_POST, $conn) > 0) {
+            echo "<script> 
             Swal.fire({
                 title: 'Data Berhasil di Tambahkan!',
                 icon: 'success',
@@ -147,18 +159,18 @@ require "function.php";
                 window.location.href = 'transaksi.php';
             });
         </script>";
-    } else {
-        echo "<script> 
+        } else {
+            echo "<script> 
             Swal.fire({
                 title: 'Data Gagal di Tambahkan!',
                 icon: 'error',
                 confirmButtonText: 'OK'
             });
         </script>";
-    }
+        }
 
-    mysqli_close($conn);
-}
+        mysqli_close($conn);
+    }
     ?>
 
     <script>

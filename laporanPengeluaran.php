@@ -12,11 +12,11 @@
     <script src="./src/js/index.js"></script>
 </head>
 
-<body class="bg vh-100">
+<body class="bg">
     <div class="loader" id="loader"></div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-nav sticky-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#"><b>E - Perjadin</b></a>
+            <a class="navbar-brand" href="menuUtama.php"><b>E - Perjadin</b></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -47,7 +47,6 @@
                             <div class="col-3 me-3">
                                 <div class="input-group">
                                     <input type="date" id="from" name="from" class="form-control form-control-sm" data-target="#reservationdate" autocomplete="off">
-                                    <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                                 </div>
                             </div>
                             <div class="col-auto">
@@ -56,10 +55,12 @@
                             <div class="col-3 ms-3">
                                 <div class="input-group">
                                     <input type="date" id="to" name="to" class="form-control form-control-sm" data-target="#reservationdate2" autocomplete="off">
-                                    <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                                 </div>
                             </div>
                             <div class="col-4 ms-4">
+                                <button class="btn btn-primary btn-sm" type="button" onclick="filterLaporan()">
+                                    <span class="fa fa-filter me-1"></span>Filter
+                                </button>
                                 <button class="btn btn-primary btn-sm" type="reset" onclick="location.reload()">
                                     <span class="fa fa-file me-1"></span>Baru
                                 </button>
@@ -72,70 +73,103 @@
                 </form>
             </div>
         </div>
-    </div>    
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-10 mx-auto text-center mt-3">
-                    <div class="card mb-3">
-                        <div class="card-header">
-                            <p>table</p>
-                        </div>
-                        <div class="card-body" style="height: 350px; overflow: scroll;">
-                            <table class="table table-border">
-                                <thead>
-                                    <tr class="text-center">
-                                        <th scope="col">No.</th>
-                                        <th scope="col">No. Surat</th>
-                                        <th scope="col">Nama</th>
-                                        <th scope="col">NIP</th>
-                                        <th scope="col">Tanggal Berangkat</th>
-                                        <th scope="col">Tanggal Selesai</th>
-                                        <th scope="col">Lama Dinas</th>
-                                        <th scope="col">Total Biaya</th>
-                                        <th scope="col">Kegiatan Perjadin</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    include 'function.php';
-                                    $dataLaporan = laporanPengeluaran(); // Mengambil data laporan pengeluaran dari database
-                                    $index = 0; // Inisialisasi counter
-                                    foreach ($dataLaporan as $laporan) {
-                                        $index++;
-                                        echo "<tr>";
-                                        echo "<td>" . $index . "</td>";
-                                        echo "<td>" . $laporan['no_surat_tugas'] . "</td>";
-                                        echo "<td>" . $laporan['nama_pegawai'] . "</td>";
-                                        echo "<td>" . $laporan['nip'] . "</td>";
-                                        echo "<td>" . $laporan['tanggal_berangkat'] . "</td>";
-                                        echo "<td>" . $laporan['tanggal_selesai'] . "</td>";
-                                        echo "<td>" . $laporan['lama_dinas'] . "</td>";
-                                        echo "<td>" . $laporan['total_biaya_perjadin'] . "</td>";
-                                        echo "<td>" . $laporan['kegiatan_perjadin'] . "</td>";
-                                        echo "</tr>";
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-10 mx-auto mt-3">
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <p>Detail</p>
+                    </div>
+                    <div class="card-body" style="height: 350px; overflow: scroll;">
+                        <table class="table table-bordered" id="laporanTable">
+                            <thead>
+                                <tr class="text-center">
+                                    <th scope="col">No.</th>
+                                    <th scope="col">No. Surat</th>
+                                    <th scope="col">Nama</th>
+                                    <th scope="col">NIP</th>
+                                    <th scope="col">Tanggal Berangkat</th>
+                                    <th scope="col">Tanggal Selesai</th>
+                                    <th scope="col">Lama Dinas</th>
+                                    <th scope="col">Total Biaya</th>
+                                    <th scope="col">Kegiatan Perjadin</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                include 'function.php';
+                                $dataLaporan = laporanPengeluaran(); // Mengambil data laporan pengeluaran dari database
+                                $i = 0; // Inisialisasi counter
+
+                                foreach ($dataLaporan as $laporan) {
+                                    $i++;
+                                    echo "<tr>";
+                                    echo "<td>" . $i . "</td>";
+                                    echo "<td>" . $laporan['no_surat_tugas'] . "</td>";
+                                    echo "<td>" . $laporan['nama_pegawai'] . "</td>";
+                                    echo "<td>" . $laporan['nip'] . "</td>";
+                                    echo "<td>" . $laporan['tanggal_berangkat'] . "</td>";
+                                    echo "<td>" . $laporan['tanggal_selesai'] . "</td>";
+                                    echo "<td>" . $laporan['lama_dinas'] . "</td>";
+                                    echo "<td>" . $laporan['total_biaya_perjadin'] . "</td>";
+
+                                    $kegiatanPerjadin = $laporan['kegiatan_perjadin'];
+                                    $explodedKegiatan = explode(" ", $kegiatanPerjadin);
+                                    $kegiatanFormatted = "";
+                                    foreach ($explodedKegiatan as $index => $word) {
+                                        $kegiatanFormatted .= $word;
+                                        if (($index + 1) % 4 === 0) {
+                                            $kegiatanFormatted .= "<br>";
+                                        } else {
+                                            $kegiatanFormatted .= " ";
+                                        }
                                     }
-                                    ?>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="card-footer">
-                                
-                        </div>
+
+                                    echo "<td>" . $kegiatanFormatted . "</td>";
+
+                                    echo "</tr>";
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-footer">
+
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- Memasukkan file JavaScript Bootstrap -->
-        <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script>
-            function cetakLaporan() {
+    <!-- Memasukkan file JavaScript Bootstrap -->
+    <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function cetakLaporan() {
             var from = document.getElementById("from").value;
             var to = document.getElementById("to").value;
-            window.open("print.php?from=" + from + "&to=" + to, "_blank");
-}
-        </script>
+            window.open("print-laporan.php?from=" + from + "&to=" + to, "_blank");
+        }
+
+
+        function filterLaporan() {
+            var fromDate = document.getElementById("from").value;
+            var toDate = document.getElementById("to").value;
+
+            var rows = document.querySelectorAll("#laporanTable tbody tr");
+            rows.forEach(function(row) {
+                var tanggalBerangkat = row.querySelector("td:nth-child(5)").innerText;
+                var tanggalSelesai = row.querySelector("td:nth-child(6)").innerText;
+
+                if (tanggalBerangkat >= fromDate && tanggalSelesai <= toDate) {
+                    row.style.display = "table-row";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        }
+    </script>
 </body>
 
 </html>

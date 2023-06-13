@@ -1,7 +1,7 @@
 :root {
-  --primary: #068DA9;
-  --secondary: #ECF8F9;
-  --thrid:#FFEA20;
+  --primary: #068da9;
+  --secondary: #ecf8f9;
+  --thrid: #ffea20;
 }
 
 *,
@@ -12,10 +12,9 @@ body {
   box-sizing: border-box;
 }
 
-.w-container{
-  margin-top: 120px ;
+.w-container {
+  margin-top: 120px;
 }
-
 
 /* navbar start */
 .nav-link.active {
@@ -23,8 +22,8 @@ body {
   font-weight: 700;
 }
 
-.bg-nav{
-  background: #0A4D68;
+.bg-nav {
+  background: #0a4d68;
 }
 
 /* navbar end */
@@ -36,7 +35,7 @@ body {
 
 /* gradient page start */
 body.bg {
-  background: linear-gradient(to bottom, #ECF8F9, #068DA9);
+  background: linear-gradient(to bottom, #ecf8f9, #068da9);
 }
 /* gradient page end */
 
@@ -86,7 +85,6 @@ body.loading {
 
 body.loading::before {
   content: "";
-  background-color: rgba(0, 0, 0, 0.5);
   position: fixed;
   top: 0;
   left: 0;
@@ -96,21 +94,22 @@ body.loading::before {
   /* Menempatkan latar belakang di bawah spinner */
 }
 /* Loader End */
-.bungkus{
+.bungkus {
   height: 35rem;
 }
 
 /* menuUtama start */
-.hero{
-  height:93.6vh;
-  background-image: url('../assets/images/halaman.jpg'); 
-  background-position:center; 
-  background-size:cover; 
+.hero {
+  height: 93.6vh;
+  background-image: url("../assets/images/halaman.jpg");
+  background-position: center;
+  background-size: cover;
   background-attachment: fixed;
 }
 
-.h1{
+.h1 {
   color: var(--secondary);
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 /* menuUtama end */
